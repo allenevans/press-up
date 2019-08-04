@@ -8,25 +8,25 @@ VOLUME ["/www"]
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update && apt-get install -y \
-  apache2 \
-  curl \
-  iputils-ping \
-  nano \
-  jq \
-  php \
-  libapache2-mod-php \
-  php-mysql \
-  php-curl \
-  php-gd \
-  php-mbstring \
-  php-xml \
-  php-xmlrpc \
-  php-soap \
-  php-intl \
-  php-zip \
-  python-pip \
-  python-dev \
-  build-essential
+    apache2 \
+    build-essential \
+    curl \
+    iputils-ping \
+    jq \
+    libapache2-mod-php \
+    php \
+    php-curl \
+    php-gd \
+    php-intl \
+    php-mbstring \
+    php-mysql \
+    php-soap \
+    php-xml \
+    php-xmlrpc \
+    php-zip \
+    python-dev \
+    python-pip && \
+  rm -rf /var/lib/apt/lists/*
 
 RUN a2enmod rewrite
 

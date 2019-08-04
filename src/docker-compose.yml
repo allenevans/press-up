@@ -36,6 +36,7 @@ services:
       - AWS_SECRET_ACCESS_KEY
       - BACKUP_ENABLED
       - BACKUP_INTERVAL
+      - MYSQL_HOST
       - MYSQL_ROOT_PASSWORD
       - MYSQL_WP_DATABASE
       - MYSQL_WP_PASS

@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 declare -a REQUIRED_ENV_VARS=(
-  "BACKUP_ENABLED"
   "S3_WORDPRESS_BUCKET"
 )
 
@@ -15,14 +14,14 @@ do
 done
 
 if [[ "${?}" -eq 0 ]] && [[ "${BACKUP_ENABLED}" = "true" ]]; then
-  echo "[info] $(date +'%F %T%z') Wordpress Backup Start"
+  echo "[info] $(date +'%F %T%z') wordpress backup start"
 
   aws s3 sync /www/wordpress/ "s3://${S3_WORDPRESS_BUCKET}"
 
   if [[ "${?}" -eq 0 ]]; then
-    echo "[info] $(date +'%F %T%z') wordpress Backup Complete"
+    echo "[info] $(date +'%F %T%z') wordpress backup complete"
   else
     echo "[error] $(date +'%F %T%z') failure backing up wordpress"
-    exit 255
+    exit 1
   fi
 fi
