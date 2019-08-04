@@ -1,7 +1,7 @@
-#Press up MySql
+# Press up MySql
 A MySql docker image with automated backups using S3
 
-##Runtime environment variables
+## Runtime environment variables
 * `MYSQL_WP_DATABASE`
   - Name of the wordpress database
 * `MYSQL_WP_USER`
@@ -24,7 +24,7 @@ A MySql docker image with automated backups using S3
 * `BACKUP_INTERVAL=<number>` *default = 86400 (1 day)* 
   - Number of seconds to elapse between database backups
 
-##Backups
+## Backups
 To enable backups, set `BACKUP_ENABLED=true`, specify `S3_MYSQL_BUCKET` and ensure the running container is authorized
 to sync up to the AWS bucket 
 
