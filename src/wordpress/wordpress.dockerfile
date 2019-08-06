@@ -7,7 +7,7 @@ VOLUME ["/www"]
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     apache2 \
     build-essential \
     curl \
@@ -25,6 +25,7 @@ RUN apt-get update && apt-get install -y \
     php-xmlrpc \
     php-zip \
     python-dev \
+    python-setuptools \
     python-pip && \
   rm -rf /var/lib/apt/lists/*
 

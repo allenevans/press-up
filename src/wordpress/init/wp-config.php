@@ -44,7 +44,7 @@ define('DB_USER', getenv('MYSQL_WP_USER'));
 define('DB_PASSWORD', getenv('MYSQL_WP_PASS'));
 
 /** MySql hostname */
-define('DB_HOST', getenv('MYSQL_HOST') ?: 'mysql');
+define('DB_HOST', getenv('MYSQL_HOSTNAME') ?: 'mysql');
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
