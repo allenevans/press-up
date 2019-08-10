@@ -1,8 +1,7 @@
 #!/bin/bash
 set -e
 
-sleep 10
-ping ${MYSQL_HOSTNAME} -c 5
+ping ${MYSQL_HOSTNAME:-press-up-mysql} -c 5
 
 if [[ -n "$(ls /www 2>/dev/null)" ]]
 then

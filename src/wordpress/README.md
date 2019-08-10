@@ -1,5 +1,5 @@
 # Press up Wordpress
-A wordpress docker image with automated backups using S3
+A wordpress docker image with automated backups using S3.
 
 ## Runtime environment variables
 * `AWS_ACCESS_KEY_ID`
@@ -22,5 +22,9 @@ A wordpress docker image with automated backups using S3
   - User to authenticate to the wordpress database
 * `S3_WORDPRESS_BUCKET`
   - S3 bucket name to write and restore backup files from
+* `WP_HOME`
+  - Wordpress home url. *default http://localhost:8888*
 * `WP_RELEASE_URL`
   - [Wordpress release](https://wordpress.org/download/releases/) to use for fresh installations
+* `WP_SITEURL`
+  - Wordpress site url. *default http://localhost:8888*

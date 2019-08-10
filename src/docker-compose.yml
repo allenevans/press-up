@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  mysql:
+  press-up-mysql:
     init: true
     build:
       context: ./mysql
@@ -21,7 +21,7 @@ services:
       - MYSQL_WP_USER
       - S3_MYSQL_BUCKET
 
-  wordpress:
+  press-up-wordpress:
     init: true
     build:
       context: ./wordpress
@@ -29,7 +29,7 @@ services:
     ports:
       - '8888:80'
     depends_on:
-      - mysql
+      - press-up-mysql
     environment:
       - AWS_ACCESS_KEY_ID
       - AWS_REGION
@@ -41,7 +41,9 @@ services:
       - MYSQL_WP_PASS
       - MYSQL_WP_USER
       - S3_WORDPRESS_BUCKET
+      - WP_HOME
       - WP_RELEASE_URL
+      - WP_SITEURL
 volumes:
   www-data:
   db-data:

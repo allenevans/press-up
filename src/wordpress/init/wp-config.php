@@ -44,7 +44,7 @@ define('DB_USER', getenv('MYSQL_WP_USER'));
 define('DB_PASSWORD', getenv('MYSQL_WP_PASS'));
 
 /** MySql hostname */
-define('DB_HOST', getenv('MYSQL_HOSTNAME') ?: 'mysql');
+define('DB_HOST', getenv('MYSQL_HOSTNAME') ?: 'press-up-mysql');
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
@@ -74,5 +74,5 @@ define('FORCE_SSL_LOGIN', false);
 if ( !defined('ABSPATH') )
 	define('ABSPATH', dirname(__FILE__) . '/');
 
-define('WP_HOME', 'http://localhost:8888');
-define('WP_SITEURL', 'http://localhost:8888');
+define('WP_HOME', getenv('WP_HOME') ?: 'http://localhost:8888');
+define('WP_SITEURL', getenv('WP_SITEURL') ?: 'http://localhost:8888');
