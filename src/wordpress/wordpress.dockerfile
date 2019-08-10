@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM allenevans/press-up-base
 
 ENV TZ=Europe/London
 EXPOSE 80 443
@@ -7,12 +7,10 @@ VOLUME ["/www"]
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get install -y --no-install-recommends \
     apache2 \
-    build-essential \
     curl \
     iputils-ping \
-    jq \
     libapache2-mod-php \
     php \
     php-curl \
@@ -23,17 +21,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     php-soap \
     php-xml \
     php-xmlrpc \
-    php-zip \
-    python-dev \
-    python-setuptools \
-    python-pip && \
+    php-zip && \
   rm -rf /var/lib/apt/lists/*
 
 RUN a2enmod rewrite
-
-RUN pip install awscli --upgrade --user && \
-  ln -s ~/.local/bin/aws /usr/bin && \
-  aws --version
 
 COPY etc /etc
 COPY init /init

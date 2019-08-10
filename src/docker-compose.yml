@@ -1,5 +1,10 @@
 version: '3.7'
 services:
+  press-up-base:
+    build:
+      context: ./base
+      dockerfile: base.dockerfile
+    image: allenevans/press-up-base
   press-up-mysql:
     init: true
     build:

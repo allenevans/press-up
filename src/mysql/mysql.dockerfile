@@ -1,18 +1,9 @@
-FROM ubuntu:18.04
+FROM allenevans/press-up-base
 
-RUN apt-get update && apt-get install -y --no-install-recommends  \
-    build-essential \
-    jq \
-    mysql-server mysql-client \
-    netcat \
-    python-dev \
-    python-setuptools \
-    python-pip && \
+RUN apt-get install -y --no-install-recommends \
+  mysql-client \
+  mysql-server && \
   rm -rf /var/lib/apt/lists/*
-
-RUN pip install awscli --upgrade --user && \
-  ln -s ~/.local/bin/aws /usr/bin && \
-  aws --version
 
 COPY etc /etc
 COPY init /init
