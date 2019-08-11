@@ -1,0 +1,54 @@
+version: '3.7'
+services:
+  press-up-base:
+    build:
+      context: ./base
+      dockerfile: base.dockerfile
+    image: allenevans/press-up-base
+  press-up-mysql:
+    init: true
+    build:
+      context: ./mysql
+      dockerfile: mysql.dockerfile
+    ports:
+      - '3306:3306'
+    expose:
+      - 3306
+    environment:
+      - AWS_ACCESS_KEY_ID
+      - AWS_REGION
+      - AWS_SECRET_ACCESS_KEY
+      - BACKUP_ENABLED
+      - BACKUP_INTERVAL
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_WP_DATABASE
+      - MYSQL_WP_PASS
+      - MYSQL_WP_USER
+      - S3_MYSQL_BUCKET
+
+  press-up-wordpress:
+    init: true
+    build:
+      context: ./wordpress
+      dockerfile: wordpress.dockerfile
+    ports:
+      - '8888:80'
+    depends_on:
+      - press-up-mysql
+    environment:
+      - AWS_ACCESS_KEY_ID
+      - AWS_REGION
+      - AWS_SECRET_ACCESS_KEY
+      - BACKUP_ENABLED
+      - BACKUP_INTERVAL
+      - MYSQL_HOSTNAME
+      - MYSQL_WP_DATABASE
+      - MYSQL_WP_PASS
+      - MYSQL_WP_USER
+      - S3_WORDPRESS_BUCKET
+      - WP_HOME
+      - WP_RELEASE_URL
+      - WP_SITEURL
+volumes:
+  www-data:
+  db-data:

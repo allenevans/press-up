@@ -3,5 +3,16 @@
   "version": "0.0.1",
   "description": "Containerised wordpress and mysql with AWS S3 backup and restore",
   "author": "Allen Evans",
-  "license": "SEE LICENSE in LICENSE.md"
+  "license": "SEE LICENSE in LICENSE.md",
+  "scripts": {
+    "build": "cd src; docker-compose build --parallel",
+    "build:base": "npm run build -- press-up-base",
+    "build:mysql": "npm run build -- press-up-base press-up-mysql",
+    "build:wordpress": "npm run build -- press-up-base press-up-wordpress",
+    "clean": "docker system prune -af; docker container prune -f; docker volume prune -f;",
+    "start:mysql": "npm run start -- press-up-base press-up-mysql",
+    "start:wordpress": "npm run start -- press-up-base press-up-wordpress",
+    "start": "cd src; docker-compose -f docker-compose.yml up --build --scale press-up-base=0",
+    "stop": "cd src; docker-compose -f docker-compose.yml down"
+  }
 }

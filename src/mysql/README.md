@@ -2,27 +2,27 @@
 A MySql docker image with automated backups using S3
 
 ## Runtime environment variables
-* `MYSQL_WP_DATABASE`
-  - Name of the wordpress database
-* `MYSQL_WP_USER`
-  - User to authenticate to the wordpress database
-* `MYSQL_WP_PASS`
-  - Password for the wordpress user
-* `S3_MYSQL_BUCKET`
-  - S3  bucket name to write and restore backup files from
 * `AWS_ACCESS_KEY_ID`
-  - See [Configuring the AWS CLI » Environment Variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
-* `AWS_SECRET_ACCESS_KEY`
   - See [Configuring the AWS CLI » Environment Variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
 * `AWS_REGION`
   - See [Configuring the AWS CLI » Environment Variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
-* `MYSQL_ROOT_PASSWORD`
-  - `root` user password.
-  - Set if you need access to the MySql instance outside of the running docker container
+* `AWS_SECRET_ACCESS_KEY`
+  - See [Configuring the AWS CLI » Environment Variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
 * `BACKUP_ENABLED=[true|false]` *default = false*
   - Boolean flag to enable backups to S3 
 * `BACKUP_INTERVAL=<number>` *default = 86400 (1 day)* 
   - Number of seconds to elapse between database backups
+* `MYSQL_WP_DATABASE`
+  - Name of the wordpress database
+* `MYSQL_WP_PASS`
+  - Password for the wordpress user
+* `MYSQL_WP_USER`
+  - User to authenticate to the wordpress database
+* `MYSQL_ROOT_PASSWORD`
+  - `root` user password.
+  - Set if you need access to the MySql instance outside of the running docker container
+* `S3_MYSQL_BUCKET`
+  - S3 bucket name to write and restore backup files from
 
 ## Backups
 To enable backups, set `BACKUP_ENABLED=true`, specify `S3_MYSQL_BUCKET` and ensure the running container is authorized
