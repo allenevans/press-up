@@ -1,2 +1,2 @@
 # Press up Base
-Common docker base image with default required tools available.
+Common docker base image with required tools and libraries pre-installed.

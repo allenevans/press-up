@@ -12,7 +12,7 @@ A wordpress docker image with automated backups using S3.
   - Boolean flag to enable backups to S3 
 * `BACKUP_INTERVAL=<number>` *default = 86400 (1 day)* 
   - Number of seconds to elapse between database backups
-* `MYSQL_HOSTNAME`  *default = 'mysql'*
+* `MYSQL_HOSTNAME`  *default = press-up-mysql*
   - MySql server host name
 * `MYSQL_WP_DATABASE`
   - Name of the wordpress database

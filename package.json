@@ -10,8 +10,9 @@
     "build:mysql": "npm run build -- press-up-base press-up-mysql",
     "build:wordpress": "npm run build -- press-up-base press-up-wordpress",
     "clean": "docker system prune -af; docker container prune -f; docker volume prune -f;",
-    "start:mysql": "docker run -it --rm -p 3306:3306 --env-file ./.env --init --name press-up-mysql allenevans/press-up-mysql",
-    "start:wordpress": "docker run -it --rm -p 8888:80 --env-file ./.env --init --name press-up-wordpress allenevans/press-up-wordpress",
-    "start": "cd src; docker-compose -f docker-compose.yml up --build --scale press-up-base=0"
+    "start:mysql": "npm run start -- press-up-base press-up-mysql",
+    "start:wordpress": "npm run start -- press-up-base press-up-wordpress",
+    "start": "cd src; docker-compose -f docker-compose.yml up --build --scale press-up-base=0",
+    "stop": "cd src; docker-compose -f docker-compose.yml down"
   }
 }
