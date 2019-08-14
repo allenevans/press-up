@@ -25,7 +25,6 @@ services:
       - MYSQL_WP_PASS
       - MYSQL_WP_USER
       - S3_MYSQL_BUCKET
-
   press-up-wordpress:
     init: true
     build:
