@@ -1,4 +1,4 @@
-FROM ubuntu:18.04 as press-up-base
+FROM ubuntu:20.04 as press-up-base
 
 RUN apt-get update && apt-get install -y --no-install-recommends  \
     build-essential \

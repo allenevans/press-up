@@ -23,7 +23,7 @@ To ease getting started, the following `npm` commands are provided:-
 
 * `npm start`
   - Uses `docker-compose` to spin up MySql and Wordpress docker containers
-* `npm stop`
+* `npm run stop`
   - Stop MySql and Wordpress docker containers
 * `npm run start:mysql`
   - Only start the MySql server container

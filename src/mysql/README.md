@@ -33,7 +33,7 @@ to sync up to the AWS bucket
 2. `.tar.gz` the sql file and assign the day of the week in the file name. E.g. *mysql.Sat.tar.gz*
 3. Copy (overwrite) the file into the S3 bucket specified by `S3_MYSQL_BUCKET`
 
-By default this will generate up to 7 database backups stored in S3, one for each day of the week
+By default, this will generate up to 7 database backups stored in S3, one for each day of the week
 
 Backup activity logs can be found in `/var/log/backup.log`. 
 
