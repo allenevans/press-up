@@ -7,6 +7,7 @@ services:
     image: allenevans/press-up-base
   press-up-mysql:
     init: true
+    restart: unless-stopped
     build:
       context: ./mysql
       dockerfile: mysql.dockerfile
@@ -27,6 +28,7 @@ services:
       - S3_MYSQL_BUCKET
   press-up-wordpress:
     init: true
+    restart: unless-stopped
     build:
       context: ./wordpress
       dockerfile: wordpress.dockerfile
