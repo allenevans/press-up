@@ -1,0 +1,26 @@
+name: pr
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Semantic version
+        if: contains(github.event.commits[0].message, '[skip ci]') == false
+        run: npm run release -- --dry-run
