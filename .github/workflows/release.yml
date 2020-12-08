@@ -1,0 +1,65 @@
+name: release
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12]
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Config
+        run: |
+          echo "Release triggered by ${{github.actor}}"
+          echo "Commit ${{github.event.commits[0].message}}"
+          git config --global user.email "git-ci@techinity.com"
+          git config --global user.name "gitci"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Semantic version
+        if: contains(github.event.commits[0].message, '[skip ci]') == false
+        env:
+          GH_TOKEN: ${{secrets.GH_TOKEN}}
+        run: npm run release
+
+      - name: Check image exists
+        id: image
+        run: |
+          docker pull allenevans/$(jq -r '.name' package.json)-mysql:$(jq -r '.version' package.json) && echo "::set-output name=mysql_exists::true" || echo "MySQL image can be published"
+          docker pull allenevans/$(jq -r '.name' package.json)-wordpress:$(jq -r '.version' package.json) && echo "::set-output name=wordpress_exists::true" || echo "Wordpress image can be published"
+
+      - name: Docker publish MySQL
+        if: steps.image.outputs.mysql_exists != 'true'
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          docker tag allenevans/$(jq -r '.name' package.json)-mysql allenevans/$(jq -r '.name' package.json)-mysql:$(jq -r ".version" package.json)
+          docker tag allenevans/$(jq -r '.name' package.json)-mysql allenevans/$(jq -r '.name' package.json)-mysql:latest
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          docker push allenevans/$(jq -r '.name' package.json)-mysql:$(jq -r ".version" package.json)
+          docker push allenevans/$(jq -r '.name' package.json)-mysql:latest
+
+      - name: Docker publish Wordpress
+        if: steps.image.outputs.wordpress_exists != 'true'
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          docker tag allenevans/$(jq -r '.name' package.json)-wordpress allenevans/$(jq -r '.name' package.json)-wordpress:$(jq -r ".version" package.json)
+          docker tag allenevans/$(jq -r '.name' package.json)-wordpress allenevans/$(jq -r '.name' package.json)-wordpress:latest
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          docker push allenevans/$(jq -r '.name' package.json)-wordpress:$(jq -r ".version" package.json)
+          docker push allenevans/$(jq -r '.name' package.json)-wordpress:latest
