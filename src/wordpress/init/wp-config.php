@@ -76,3 +76,7 @@ if ( !defined('ABSPATH') )
 
 define('WP_HOME', getenv('WP_HOME') ?: 'http://localhost:8888');
 define('WP_SITEURL', getenv('WP_SITEURL') ?: 'http://localhost:8888');
+
+/* Support https handoff to http reverse proxy */
+if ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
+  $_SERVER['HTTPS']='on';
