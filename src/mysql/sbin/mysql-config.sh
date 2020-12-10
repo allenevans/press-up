@@ -53,15 +53,15 @@ echo "[info] execute user statements"
 mysql --user=root --skip-password < ${tmp_file}
 
 # Check for S3 backup file to restore from
-if [[ -n "${S3_MYSQL_BUCKET}" ]]; then
-  restore_file=$(aws s3api list-objects --bucket ${S3_MYSQL_BUCKET} --query "reverse(sort_by(Contents,&LastModified))" | jq -r ".[].Key" | grep mysql | head -n 1);
+if [[ -n "${S3_BACKUP_BUCKET}" ]]; then
+  restore_file=$(aws s3api list-objects --bucket ${S3_BACKUP_BUCKET} --query "reverse(sort_by(Contents,&LastModified))" | jq -r ".[].Key" | grep "^mysql/" | head -n 1);
 fi
 
 if [[ ${restore_file:-''} != '' ]]
 then
   echo "[info] restore from S3 ${restore_file}..."
 
-  aws s3 cp s3://${S3_MYSQL_BUCKET}/${restore_file} /init/mysql.tar.gz
+  aws s3 cp s3://${S3_BACKUP_BUCKET}/${restore_file} /init/mysql.tar.gz
   tar -C /init -xzvf /init/mysql.tar.gz
 
   echo "USE wordpress;" > ${tmp_file}
