@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 declare -a REQUIRED_ENV_VARS=(
-  "S3_WORDPRESS_BUCKET"
+  "S3_BACKUP_BUCKET"
 )
 
 for env_var in "${REQUIRED_ENV_VARS[@]}"
@@ -16,7 +16,7 @@ done
 if [[ "${?}" -eq 0 ]] && [[ "${BACKUP_ENABLED}" = "true" ]]; then
   echo "[info] $(date +'%F %T%z') wordpress backup start"
 
-  aws s3 sync /www/wordpress/ "s3://${S3_WORDPRESS_BUCKET}"
+  aws s3 sync /www/wordpress/ "s3://${S3_BACKUP_BUCKET}/wordpress/"
 
   if [[ "${?}" -eq 0 ]]; then
     echo "[info] $(date +'%F %T%z') wordpress backup complete"

@@ -9,13 +9,13 @@ then
 else
   echo "[info] wordpress www directory not found, creating initial config"
 
-  if [[ -n "${S3_WORDPRESS_BUCKET}" ]]; then
-    restore_file=$(aws s3api list-objects --bucket ${S3_WORDPRESS_BUCKET} --query "reverse(sort_by(Contents,&LastModified))" | jq -r ".[].Key" | grep index.php | head -n 1);
+  if [[ -n "${S3_BACKUP_BUCKET}" ]]; then
+    restore_file=$(aws s3api list-objects --bucket ${S3_BACKUP_BUCKET} --query "reverse(sort_by(Contents,&LastModified))" | jq -r ".[].Key" | grep "^wordpress/index\.php" | head -n 1);
   fi
 
   if [[ -n "${restore_file}" ]]; then
     echo "[info] Restore from S3 sync..."
-    aws s3 sync s3://${S3_WORDPRESS_BUCKET}/ /init/www/wordpress
+    aws s3 sync s3://${S3_BACKUP_BUCKET}/wordpress/ /init/www/wordpress
     mv /init/www/wordpress /www
   else
     echo "[info] Staring fresh wordpress installation"

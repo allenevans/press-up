@@ -3,7 +3,7 @@
 declare -a REQUIRED_ENV_VARS=(
   "MYSQL_WP_DATABASE"
   "MYSQL_ROOT_PASSWORD"
-  "S3_MYSQL_BUCKET"
+  "S3_BACKUP_BUCKET"
 )
 
 for env_var in "${REQUIRED_ENV_VARS[@]}"
@@ -29,7 +29,7 @@ mysqldump \
 if [[ "${?}" -eq 0 ]]; then
   tar -zcvf ${archive_file} ${sql_file}
 
-  aws s3 cp ${archive_file} "s3://${S3_MYSQL_BUCKET}"
+  aws s3 cp ${archive_file} "s3://${S3_BACKUP_BUCKET}/mysql/"
 
   rm ${archive_file}
   rm ${sql_file}

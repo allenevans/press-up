@@ -21,17 +21,17 @@ A MySql docker image with automated backups using S3
 * `MYSQL_ROOT_PASSWORD`
   - `root` user password.
   - Set if you need access to the MySql instance outside of the running docker container
-* `S3_MYSQL_BUCKET`
+* `S3_BACKUP_BUCKET`
   - S3 bucket name to write and restore backup files from
 
 ## Backups
-To enable backups, set `BACKUP_ENABLED=true`, specify `S3_MYSQL_BUCKET` and ensure the running container is authorized
+To enable backups, set `BACKUP_ENABLED=true`, specify `S3_BACKUP_BUCKET` and ensure the running container is authorized
 to sync up to the AWS bucket 
 
 ### Backup process
 1. Do `mysqldump` of the wordpress database specified by `MYSQL_WP_DATABASE`
 2. `.tar.gz` the sql file and assign the day of the week in the file name. E.g. *mysql.Sat.tar.gz*
-3. Copy (overwrite) the file into the S3 bucket specified by `S3_MYSQL_BUCKET`
+3. Copy (overwrite) the file into the S3 bucket specified by `S3_BACKUP_BUCKET`
 
 By default, this will generate up to 7 database backups stored in S3, one for each day of the week
 
@@ -44,5 +44,5 @@ docker exec <container_id> tail -100 /var/log/backup.log
 ```
 
 ### Automatic restore
-When the docker container starts, if `S3_MYSQL_BUCKET` has been specified then the initialisation entry script will attempt
+When the docker container starts, if `S3_BACKUP_BUCKET` has been specified then the initialisation entry script will attempt
 to connect to S3, look for the latest database dump and if it exists, restore it.

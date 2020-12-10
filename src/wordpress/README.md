@@ -20,7 +20,7 @@ A wordpress docker image with automated backups using S3.
   - Password for the wordpress user
 * `MYSQL_WP_USER`
   - User to authenticate to the wordpress database
-* `S3_WORDPRESS_BUCKET`
+* `S3_BACKUP_BUCKET`
   - S3 bucket name to write and restore backup files from
 * `WP_HOME`
   - Wordpress home url. *default http://localhost:8888*
