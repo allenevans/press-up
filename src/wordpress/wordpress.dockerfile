@@ -12,6 +12,7 @@ RUN apt-get install -y --no-install-recommends \
     curl \
     iputils-ping \
     libapache2-mod-php \
+    nano \
     php \
     php-curl \
     php-gd \
