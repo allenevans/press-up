@@ -28,10 +28,11 @@
  * For information on other constants that can be used for debugging,
  * visit the Codex.
  *
- * @link https://codex.wordpress.org/Debugging_in_WordPress
+ * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-define('WP_DEBUG', true);
-
+define('WP_DEBUG', false);
+# define('WP_DEBUG_LOG', '/tmp/wp-errors.log');
+# define('WP_DEBUG_DISPLAY', true);
 
 // ** MySql settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
