@@ -24,6 +24,7 @@ else
     ls /init
     tar -C /init -xzvf /init/wordpress.tar.gz
     mv /init/wp-config.php /init/wordpress
+    mv /init/.htaccess /init/wordpress
 
     curl -s https://api.wordpress.org/secret-key/1.1/salt/ >> /init/wordpress/wp-config.php
     echo "require_once(ABSPATH . 'wp-settings.php');"  >> /init/wordpress/wp-config.php
